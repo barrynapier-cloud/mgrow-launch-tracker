@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGrow Launch Tracker - ManageMowed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="company-branding">
+                        <img src="https://managemowed.com/wp-content/uploads/2023/02/Logo.png" alt="ManageMowed" class="company-logo">
+                        <div class="project-details">
+                            <div class="project-meta">
+                                <span class="launch-date">
+                                    <i class="fas fa-rocket"></i>
+                                    Target Launch: Sep 10, 2024
+                                </span>
+                                <div class="countdown-container">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="countdownTimer">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span class="progress-label">Project Progress</span>
+                            <span class="progress-percentage" id="progressPercentage">0%</span>
+                        </div>
+                        <div class="progress-gauge">
+                            <svg class="progress-ring" width="80" height="80">
+                                <circle class="progress-ring-background" cx="40" cy="40" r="35"></circle>
+                                <circle class="progress-ring-foreground" cx="40" cy="40" r="35" id="progressRing"></circle>
+                            </svg>
+                            <div class="progress-center">
+                                <span id="progressText">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Board -->
+        <main class="board-container">
+            <div class="board-header">
+                <div class="board-title-section">
+                    <div class="mgrow-project-branding">
+                        <div class="mgrow-logo-main">
+                            <div class="mgrow-icon-main">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <span class="mgrow-text-main">MGrow</span>
+                        </div>
+                        <h1 class="main-project-title">Launch Tracker</h1>
+                    </div>
+                </div>
+                <div class="board-actions">
+                    <button class="btn btn-primary" id="addTaskBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Task
+                    </button>
+                    <button class="btn btn-secondary" id="viewStatsBtn">
+                        <i class="fas fa-chart-bar"></i>
+                        Statistics
+                    </button>
+                    <button class="btn btn-secondary" id="forceCreateTasksBtn">
+                        <i class="fas fa-database"></i>
+                        Load MGrow Tasks
+                    </button>
+                    <button class="btn btn-secondary" id="debugBtn">
+                        <i class="fas fa-bug"></i>
+                        Debug
+                    </button>
+                </div>
+            </div>
+
+            <div class="kanban-board" id="kanbanBoard">
+                <!-- Backlog Column -->
+                <div class="column" data-status="backlog">
+                    <div class="column-header">
+                        <h3 class="column-title">
+                            <i class="fas fa-inbox"></i>
+                            Backlog
+                        </h3>
+                        <span class="task-count" id="backlogCount">0</span>
+                    </div>
+                    <div class="column-content" data-column="backlog">
+                        <!-- Tasks will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Week 1 Column -->
+                <div class="column" data-status="week1">
+                    <div class="column-header">
+                        <h3 class="column-title">
+                            <i class="fas fa-calendar-week"></i>
+                            Week 1
+                        </h3>
+                        <div class="week-dates">Aug 10-16</div>
+                        <span class="task-count" id="week1Count">0</span>
+                    </div>
+                    <div class="column-content" data-column="week1">
+                        <!-- Tasks will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Week 2 Column -->
+                <div class="column" data-status="week2">
+                    <div class="column-header">
+                        <h3 class="column-title">
+                            <i class="fas fa-calendar-week"></i>
+                            Week 2
+                        </h3>
+                        <div class="week-dates">Aug 17-23</div>
+                        <span class="task-count" id="week2Count">0</span>
+                    </div>
+                    <div class="column-content" data-column="week2">
+                        <!-- Tasks will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Week 3 Column -->
+                <div class="column" data-status="week3">
+                    <div class="column-header">
+                        <h3 class="column-title">
+                            <i class="fas fa-calendar-week"></i>
+                            Week 3
+                        </h3>
+                        <div class="week-dates">Aug 24-30</div>
+                        <span class="task-count" id="week3Count">0</span>
+                    </div>
+                    <div class="column-content" data-column="week3">
+                        <!-- Tasks will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Week 4 Column -->
+                <div class="column" data-status="week4">
+                    <div class="column-header">
+                        <h3 class="column-title">
+                            <i class="fas fa-calendar-week"></i>
+                            Week 4
+                        </h3>
+                        <div class="week-dates">Aug 31-Sep 6</div>
+                        <span class="task-count" id="week4Count">0</span>
+                    </div>
+                    <div class="column-content" data-column="week4">
+                        <!-- Tasks will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Completed Column -->
+                <div class="column completed-column" data-status="completed">
+                    <div class="column-header">
+                        <h3 class="column-title">
+                            <i class="fas fa-check-circle"></i>
+                            Completed
+                        </h3>
+                        <span class="task-count" id="completedCount">0</span>
+                    </div>
+                    <div class="column-content" data-column="completed">
+                        <!-- Completed tasks will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Add New Task</h2>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle">Task Title *</label>
+                        <input type="text" id="taskTitle" name="title" required maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskDescription">Description</label>
+                        <textarea id="taskDescription" name="description" rows="3" maxlength="500"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskStatus">Column</label>
+                            <select id="taskStatus" name="status">
+                                <option value="backlog">Backlog</option>
+                                <option value="week1">Week 1</option>
+                                <option value="week2">Week 2</option>
+                                <option value="week3">Week 3</option>
+                                <option value="week4">Week 4</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taskPriority">Priority</label>
+                            <select id="taskPriority" name="priority">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskAssignee">Assignee</label>
+                            <input type="text" id="taskAssignee" name="assignee" maxlength="50">
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskTags">Tags (comma-separated)</label>
+                        <input type="text" id="taskTags" name="tags" placeholder="development, design, testing">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskDueDate">Due Date</label>
+                        <input type="date" id="taskDueDate" name="due_date">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveTaskBtn" form="taskForm">Save Task</button>
+                <button type="button" class="btn btn-danger" id="deleteTaskBtn" style="display: none;">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Modal -->
+    <div class="modal" id="statsModal">
+        <div class="modal-content stats-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Project Statistics</h2>
+                <button class="modal-close" id="closeStatsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalTasksStat">0</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="completedTasksStat">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="pendingTasksStat">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalHoursStat">27 days</div>
+                        <div class="stat-label">Time Remaining</div>
+                    </div>
+                </div>
+                <div class="stats-chart">
+                    <canvas id="progressChart" style="height: 300px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Debug Modal -->
+    <div class="modal" id="debugModal">
+        <div class="modal-content stats-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Debug Information</h2>
+                <button class="modal-close" id="closeDebugModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="debug-section">
+                    <h3>API Tests</h3>
+                    <button class="btn btn-secondary" id="testApiBtn">Test API Connection</button>
+                    <button class="btn btn-secondary" id="createTestTaskBtn">Create Test Task</button>
+                    <button class="btn btn-secondary" id="clearAllTasksBtn">Clear All Tasks</button>
+                </div>
+                <div class="debug-section">
+                    <h3>System Info</h3>
+                    <div id="debugInfo">
+                        <p><strong>Current URL:</strong> <span id="currentUrl"></span></p>
+                        <p><strong>Tasks in Memory:</strong> <span id="tasksInMemory">0</span></p>
+                        <p><strong>Last API Call:</strong> <span id="lastApiCall">None</span></p>
+                    </div>
+                </div>
+                <div class="debug-section">
+                    <h3>Console Log</h3>
+                    <div class="debug-log" id="debugLog"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
